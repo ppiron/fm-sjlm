@@ -36,9 +36,9 @@ body {
   background-image: url(images/bg-header-desktop.svg);
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-end; */
 }
 
 .reduced_margin {
@@ -230,6 +230,10 @@ body {
 @media all and (max-width: 960px) {
   .container {
     max-width: 375px;
+  }
+
+  .header {
+    background-image: url(images/bg-header-mobile.svg);
   }
 
   .card {
