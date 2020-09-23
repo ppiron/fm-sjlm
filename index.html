@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Job Listings</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div class="container" x-data="data()">
+      <div class="header" :class="{'reduced_margin': filters.length > 0}"></div>
+      <div class="filters" x-show="filters.length > 0">
+        <div class="filters__left">
+          <template x-for="filt in filters" :key="filt.value">
+            <div class="filter">
+              <span x-text="filt.value"></span>
+              <button class="icon" @click="removeFilter(filt.type, filt.value)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
+                  <path
+                    fill="#FFF"
+                    fill-rule="evenodd"
+                    d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </template>
+        </div>
+        <div
+          x-show="filters.length > 0"
+          class="filters__right"
+          @click="clearFilters()"
+        >
+          <span>Clear</span>
+        </div>
+      </div>
+      <template x-for="item in items" :key="item.id">
+        <div class="card" :class="{'card_featured': item.featured}">
+          <div class="card__main">
+            <div class="card__logo">
+              <img :src="item.logo" alt="" />
+            </div>
+            <div class="card__post">
+              <div class="card__company">
+                <div x-text="item.company"></div>
+                <div class="new" x-show="item.new">NEW!</div>
+                <div class="featured" x-show="item.featured">FEATURED</div>
+              </div>
+              <div class="card__position" x-text="item.position"></div>
+              <div class="card__post_details">
+                <div x-text="item.postedAt"></div>
+                <div x-text="item.contract"></div>
+                <div x-text="item.location"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card__skills">
+            <button
+              x-text="item.role"
+              @click="addFilter($event, type='role')"
+            ></button>
+            <button
+              x-text="item.level"
+              @click="addFilter($event, type='level')"
+            ></button>
+            <template x-for="skill in item.languages" :key="skill">
+              <button
+                x-text="skill"
+                @click="addFilter($event, type='languages')"
+              ></button>
+            </template>
+            <template x-for="tool in item.tools" :key="tool">
+              <button
+                x-text="tool"
+                @click="addFilter($event, type='tools')"
+              ></button>
+            </template>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Your Name Here</a>.
+    </div>
+  </body>
+</html>
